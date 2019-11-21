@@ -1,7 +1,5 @@
 package edu.cscc;
 
-import java.util.Arrays;
-
 /**
  * @author Bobby Linse
  * Date: November 2019
@@ -14,54 +12,121 @@ import java.util.Arrays;
  * lecture notes on array lists.
  */
 
-public class BinaryTree{
+public class BinaryTree {
 
-    private int[] elements; // list of values
-    private int size;
-    public static final int DEFAULT_SIZE = 50;
+    public static class Node { //local inner class
+        int data;
+        Node lNode;
+        Node rNode;
 
-
-    public BinaryTree() {
-        this(DEFAULT_SIZE);
-    }
-
-    public BinaryTree(int arrSize) {
-        if (arrSize < 0) {
-            throw new IllegalArgumentException("Array Size is less than zero. Size: " + arrSize);
+        //Constructor
+        public Node(int item) {
+            data = item;
+            lNode = null;
+            rNode = null;
         }
-//      elements = (int[]) new Object[arrSize];
-        size = elements.length;
     }
 
-    public int size() {
+    Node head;
+    int size;
+
+        public int size() {
+            return this.size;
+        }
+
+        public boolean isEmpty() {
+            return (size() == 0);
+        }
+
+
+        public void add(int value) {
+            if (head == null) {
+                Node first = new Node(1);
+                first.data = value;
+            } else {
+                add(value, head);
+                size++;
+            }
+        }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
+    public int getSize() {
         return size;
     }
 
-    public boolean isEmpty() {
-        if(size==0){ return true; }
-        else{ return false; }
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public void add(int data) {
-        if (size < elements.length) {
-            elements[size] = data;
+    private void add(int value, Node node) {
+            if (value > node.data) {
+                if (node.rNode == null) {
+                    node.rNode = new Node(value);
+                } else {
+                    add(value, node.rNode);
+                }
+
+            } else if (value <= node.data) {
+                if (node.lNode == null) {
+                    node.lNode = new Node(value);
+                } else {
+                    add(value, node.lNode);
+                }
+            }
         }
-        else {
-            size = size +1; //Allocate more space
-            elements[size] = data;
+
+        public boolean exists(int value) {
+            return exists(value, head);
         }
-        size++;
-    }
-    public boolean exists(int data){
-        return false;
-    }
 
-    public Integer max(){
-        return -1;
-    }
+        private boolean exists(int value, Node node) {
+            if (node == null) {
+                return false;
+            }
+            else if (value == node.data) {
+                return true;
+            }
+            else if (value > node.data) {
+                return exists(value, node.rNode);
+            }
+            else if (value < node.data) {
+                return exists(value, node.rNode);
+            }
+            else {
+                return false;
+            }
+        }
 
-    public Integer min(){
-        return -1;
-    }
+        public Integer max() {
+            Node currentHead = head;
 
-}
+            if (currentHead == null) {
+                return -1;
+            } else {
+                while (currentHead.rNode != null) {
+                    currentHead = currentHead.rNode;
+                }
+                return currentHead.data;
+            }
+        }
+
+        public Integer min() {
+            Node currentHead = head;
+
+            if (currentHead == null) {
+                return -1;
+            } else {
+                while (currentHead.lNode != null) {
+                    currentHead = currentHead.rNode;
+                }
+                return currentHead.data;
+            }
+        }
+    }
