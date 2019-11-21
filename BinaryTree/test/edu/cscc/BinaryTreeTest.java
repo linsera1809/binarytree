@@ -25,7 +25,10 @@ public final class BinaryTreeTest {
     public void size() {
         assertEquals(0, a.size());
         assertEquals(0, size);
-        a.toString();
+        a.add(6);
+        n.data = 4;
+//        System.out.println(a.toString());
+//        System.out.println(n.toString());
     }
 
     @Test
