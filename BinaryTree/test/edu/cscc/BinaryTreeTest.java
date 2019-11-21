@@ -25,6 +25,7 @@ public final class BinaryTreeTest {
     public void size() {
         assertEquals(0, a.size());
         assertEquals(0, size);
+        a.toString();
     }
 
     @Test

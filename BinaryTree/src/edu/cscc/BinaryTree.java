@@ -129,4 +129,9 @@ public class BinaryTree {
                 return currentHead.data;
             }
         }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
+}
